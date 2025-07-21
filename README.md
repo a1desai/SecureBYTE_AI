@@ -123,6 +123,53 @@ llm.switch_provider("anthropic")
 response = llm.generate_response("Hello from Claude!")
 ```
 
+## 🚦 How to Use
+
+1. **Set Up API Keys**
+   - Copy `.env.example` to `.env` and fill in your API keys for the providers you want to use.
+   - You can use as many or as few providers as you like—just leave unused keys blank.
+
+2. **Choose Provider, Model, and Parameters**
+   - Open `config.py`.
+   - Set `CURRENT_PROVIDER` to the provider you want (e.g., `openai`, `anthropic`, etc.).
+   - In the `MODELS` dictionary, pick your model and adjust parameters (temperature, max tokens, etc.).
+   - You can copy model names directly from the provider’s documentation.
+
+3. **Run a Single Test**
+   - Run `python main.py` to send a test prompt to your selected provider/model and see the response.
+
+4. **Interactive Console Mode**
+   - Run `python main.py interactive` for a REPL-style console.
+   - Type prompts and get responses instantly.
+   - Use commands like `/switch <provider>`, `/providers`, `/config`, `/benchmark`, and `/quit`.
+
+5. **Benchmarking**
+   - Run `python main.py benchmark` to test all configured providers on a set of prompts.
+   - Results are saved as a JSON file for later review.
+   - You can specify which providers to benchmark by passing them as a comma-separated list: `python main.py benchmark openai,anthropic`.
+
+6. **Test a Provider Directly**
+   - Run any provider file directly (e.g., `python providers/openai_provider.py`) to send a test request and log the result.
+
+7. **Switch Providers and Models**
+   - Change `CURRENT_PROVIDER` and model name in `config.py`, or use `/switch` in interactive mode.
+   - Edit parameters in the `MODELS` dictionary for fine-tuning.
+
+8. **Add New Models**
+   - Copy the model name from the provider’s docs and paste it into the `model` field in `config.py` under the correct provider.
+   - Adjust parameters as needed.
+
+9. **Handle Errors**
+   - If you see an error like `Error with OpenAI: ...`, check your API key, model name, and parameters.
+   - Make sure your API key is valid and you have access to the model.
+   - Typos or unsupported models will result in clear error messages.
+
+**Main Files to Edit/Use:**
+- `.env` — API keys
+- `config.py` — Provider, model, and parameter selection
+- `main.py` — Main entry point for testing, benchmarking, and interactive mode
+- `providers/` — Individual provider implementations (can be run directly)
+
 ## 🔧 Supported Providers & Models
 
 | Provider | Popular Models | Notes |
