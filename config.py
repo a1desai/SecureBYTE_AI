@@ -54,7 +54,7 @@ MODELS = {
         # - gpt-4-vision-preview (Supports image inputs)
         # - gpt-4-32k (Extended context window)
         # Full list: https://platform.openai.com/docs/models/overview
-        "model": "gpt-4",
+        "model": "gpt-4.1-nano",
         
         # Parameters
         "temperature": 0.7,            # 0.0-2.0, higher = more creative

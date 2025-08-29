@@ -22,13 +22,12 @@ Default Parameters:
 """
 
 import os
-from mistralai.client import MistralClient
-from mistralai.models.chat_completion import ChatMessage
+from mistralai import Mistral, UserMessage, SystemMessage
 from typing import Dict, Any
 
 class MistralProvider:
     def __init__(self):
-        self.client = MistralClient(api_key=os.getenv("MISTRAL_API_KEY"))
+        self.client = Mistral(api_key=os.getenv("MISTRAL_API_KEY"))
     
     def generate_response(self, 
                          system_prompt: str, 
@@ -37,11 +36,11 @@ class MistralProvider:
         """Generate response using Mistral API"""
         try:
             messages = [
-                ChatMessage(role="system", content=system_prompt),
-                ChatMessage(role="user", content=user_prompt)
+                SystemMessage(content=system_prompt),
+                UserMessage(content=user_prompt)
             ]
             
-            response = self.client.chat(
+            response = self.client.chat.complete(
                 model=model_config.get("model", "mistral-large-latest"),
                 messages=messages,
                 temperature=model_config.get("temperature", 0.7),
@@ -59,11 +58,11 @@ class MistralProvider:
         """Stream response using Mistral API"""
         try:
             messages = [
-                ChatMessage(role="system", content=system_prompt),
-                ChatMessage(role="user", content=user_prompt)
+                SystemMessage(content=system_prompt),
+                UserMessage(content=user_prompt)
             ]
             
-            response = self.client.chat_stream(
+            response = self.client.chat.stream(
                 model=model_config.get("model", "mistral-large-latest"),
                 messages=messages,
                 temperature=model_config.get("temperature", 0.7),
@@ -72,8 +71,8 @@ class MistralProvider:
             )
             
             for chunk in response:
-                if chunk.choices[0].delta.content is not None:
-                    yield chunk.choices[0].delta.content
+                if chunk.data.choices[0].delta.content is not None:
+                    yield chunk.data.choices[0].delta.content
         except Exception as e:
             yield f"Error with Mistral streaming: {str(e)}"
 
