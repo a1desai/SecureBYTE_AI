@@ -41,6 +41,7 @@ class OpenAIProvider:
                          model_config: Dict[str, Any]) -> str:
         """Generate response using OpenAI API"""
         try:
+            response_format = model_config.get("response_format")
             response = self.client.chat.completions.create(
                 model=model_config.get("model", "gpt-4"),
                 messages=[
@@ -51,7 +52,8 @@ class OpenAIProvider:
                 max_tokens=model_config.get("max_tokens", 2000),
                 top_p=model_config.get("top_p", 1.0),
                 frequency_penalty=model_config.get("frequency_penalty", 0.0),
-                presence_penalty=model_config.get("presence_penalty", 0.0)
+                presence_penalty=model_config.get("presence_penalty", 0.0),
+                response_format={"type": "json_object"} if response_format == "json_object" else None
             )
             return response.choices[0].message.content
         except Exception as e:

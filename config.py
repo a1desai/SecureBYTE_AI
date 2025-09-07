@@ -57,11 +57,12 @@ MODELS = {
         "model": "gpt-4.1-nano",
         
         # Parameters
-        "temperature": 0.7,            # 0.0-2.0, higher = more creative
+        "temperature": 0.2,            # Lower for deterministic JSON
         "max_tokens": 2000,            # Maximum response length
         "top_p": 1.0,                  # 0.0-1.0, nucleus sampling
         "frequency_penalty": 0.0,      # -2.0 to 2.0, positive values penalize repetition
         "presence_penalty": 0.0,       # -2.0 to 2.0, positive values penalize topic repetition
+        "response_format": "json_object",  # Ask OpenAI to return valid JSON
     },
     
     "anthropic": {
