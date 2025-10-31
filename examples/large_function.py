@@ -30,6 +30,7 @@ def detect_large_blocks(filename):
 #Main function for testing and debugging
 
 def main():
+    #test file path will work on directly with file names as well
     test_file = r"C:\Users\aryan\OneDrive\Kingdom Rush\Documents\SecureByte\SecureBYTE_AI-1\examples\multi_provider_comparison.py"
     print("Current working directory:", os.getcwd())
     try:
